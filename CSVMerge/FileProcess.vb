@@ -4,9 +4,6 @@ Imports CommandLine
 Public Class FileProcess
     Public Shared Function MergeFiles(opts As Options) As Integer
 
-        'Console.WriteLine($"input: {opts.InputDir}")
-        'Console.WriteLine($"output: {opts.OutputFile}")
-
         Dim fileList As List(Of String)
         Dim header As String
         Dim sr As StreamReader
@@ -19,9 +16,7 @@ Public Class FileProcess
             Return 2
         End If
 
-
         fileList = Directory.GetFiles(opts.InputDir, opts.Extension).ToList
-
 
         'remove output file from file list
         fileList.RemoveAll(Function(f) IO.Path.GetFileName(f).Equals(opts.OutputFile))
@@ -39,8 +34,8 @@ Public Class FileProcess
             header = ReadHeader(fileList(0))
         End If
 
-
-        sw = New StreamWriter(opts.OutputFile)
+        'if append flag is set then append output
+        sw = New StreamWriter(opts.OutputFile, IIf(opts.Append, True, False))
         sw.WriteLine(header)
 
         For Each filePath As String In fileList

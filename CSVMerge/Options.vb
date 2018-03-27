@@ -7,6 +7,9 @@ Public Class Options
     <CommandLine.Option("h", "header file", HelpText:="Specify file that contains header")>
     Public Property HeaderFile As String
 
+    <CommandLine.Option("a", "append output")>
+    Public Property Append As Boolean
+
     <CommandLine.Value(0, MetaName:="input folder", Required:=True)>
     Public Property InputDir As String
 
