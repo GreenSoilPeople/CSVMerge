@@ -1,6 +1,8 @@
 ﻿Imports System.IO
+Imports System.Runtime.CompilerServices
 Imports CommandLine
 
+<Assembly: InternalsVisibleTo("UnitTestProject1")>
 Public Class FileProcess
     Public Shared Function MergeFiles(opts As Options) As Integer
 
@@ -56,14 +58,14 @@ Public Class FileProcess
         Return 0
     End Function
 
-    Private Shared Function ReadHeader(path As String)
+    Friend Shared Function ReadHeader(path As String)
         Dim sr = New StreamReader(path)
         Return sr.ReadLine()
     End Function
 
-    Public Shared Function WriteErrors(errs As IEnumerable(Of [Error]))
+    Public Shared Sub WriteErrors(errs As IEnumerable(Of [Error]))
         For Each er In errs
             Console.WriteLine(er.Tag)
         Next
-    End Function
+    End Sub
 End Class
