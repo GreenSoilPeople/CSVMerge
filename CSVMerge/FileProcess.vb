@@ -7,7 +7,6 @@ Public Class FileProcess
     Public Shared Function MergeFiles(opts As Options) As Integer
 
         Dim fileList As List(Of String)
-        Dim header As String
         Dim sr As StreamReader
         Dim sw As StreamWriter
 
@@ -21,10 +20,11 @@ Public Class FileProcess
         fileList = Directory.GetFiles(opts.InputDir, opts.Extension).ToList
 
         'remove output file from file list
-        fileList.RemoveAll(Function(f) IO.Path.GetFileName(f).Equals(opts.OutputFile))
+        fileList.RemoveAll(Function(f) Path.GetFileName(f).Equals(opts.OutputFile))
 
         If fileList.Count < 1 Then Return 1
 
+        Dim header As String
         'read header line
         If Not String.IsNullOrWhiteSpace(opts.HeaderFile) Then
             If Not File.Exists(opts.HeaderFile) Then
@@ -59,13 +59,14 @@ Public Class FileProcess
     End Function
 
     Friend Shared Function ReadHeader(path As String)
+        If Not File.Exists(path) Then Return Nothing
         Dim sr = New StreamReader(path)
         Return sr.ReadLine()
     End Function
 
-    Public Shared Sub WriteErrors(errs As IEnumerable(Of [Error]))
+    Public Shared Function WriteErrors(errs As IEnumerable(Of [Error]))
         For Each er In errs
             Console.WriteLine(er.Tag)
         Next
-    End Sub
+    End Function
 End Class

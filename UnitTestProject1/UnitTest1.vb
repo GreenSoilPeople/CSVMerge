@@ -3,8 +3,8 @@ Imports Microsoft.VisualStudio.TestTools.UnitTesting
 Imports CSVMerge
 
 <TestClass()>
-Public Class UnitTest1
-
+Public Class UT_MergeFiles
+    
     <TestMethod>
     Public Sub Return1IfNoFilesInDir()
         Dim _opt As New Options With {.InputDir = "\", .Extension = "*.csv", .OutputFile = "output.csv"}
@@ -30,7 +30,7 @@ Public Class UnitTest1
     End Sub
 
     <TestMethod>
-    Friend Sub Return0IfAllOk()
+    Public Sub Return0IfAllOk()
         Dim _opt As New Options With {.InputDir = "D:\TEST\cqs\test", .Extension = "*.csv", .OutputFile = "output.csv", .HeaderFile = "D:\TEST\cqs\test\1.csv"}
         Dim result As Integer = FileProcess.MergeFiles(_opt)
 
