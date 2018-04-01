@@ -10,6 +10,9 @@ Public Class Options
     <CommandLine.Option("a", "append output")>
     Public Property Append As Boolean
 
+    <CommandLine.Option("e", "export format")>
+    Public Property ExportFormat As String
+
     <CommandLine.Value(0, MetaName:="input folder", Required:=True)>
     Public Property InputDir As String
 
